@@ -3,9 +3,15 @@
 echo "Hello asddasdasdasdas";
 
 define("ROOT_PATH", __DIR__);
+echo "root path defined";
 
 session_start();
+echo "session started";
+
 require_once(ROOT_PATH."/users/user.model.php");
+echo "required usermodel";
+
+
 $User = new User();
 
 //echo ROOT_PATH . '/test';
