@@ -10,6 +10,8 @@ $User = new User();
 
 //echo ROOT_PATH . '/test';
 
+var_dump($User);
+
 ?>
 
 
