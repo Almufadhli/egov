@@ -267,16 +267,16 @@
       <h4 style="background-color: green ;color: white">New User</h4>
 
 
-        <form onsubmit="return chk()" action="register_action.php" method="post">
+        <form onsubmit="return chk()" action="register_action.php" method="POST">
 
-          <label for="ID"><b>ID</b></label>
-          <input type="text" placeholder="Enter your ID or Iqama" name="nationalID" required><br>
+          <label for="natid"><b>ID</b></label>
+          <input type="text" placeholder="Enter your ID" id="myid" name="myid" required> <br>
 
-          <label for="ID"><b>Username</b></label>
-          <input type="text" placeholder="Enter your desired username" name="username" required><br>
+          <label for="username"><b>Username</b></label>
+          <input type="text" placeholder="Enter your desired username" id="username" name="username" required> <br>
 
           <label for="email"><b>Email</b></label>
-          <input type="email" placeholder="Enter a valid Email" name="email" required><br>
+          <input type="email" placeholder="Enter a valid Email" id="email" name="email" required><br>
 
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" id="psw" name="psw" required><br>

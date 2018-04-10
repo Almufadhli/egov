@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-  <title>login</title>
+  <title>Representative Login</title>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -237,7 +237,7 @@
 </nav>
 
 <div class="jumbotron text-center">
-  <h1>MLFATI</h1>
+  <h1>Service Center</h1>
   <p>YOUR FILE IN TOUR HAND</p>
 
 
@@ -247,7 +247,7 @@
 
 <!-- Container (sing up Section) -->
 <div id="services" class="container-fluid text-center">
-  <h2>Login</h2>
+  <h2>sign up</h2>
 
   <br>
   <div class="row slideanim">
@@ -257,15 +257,12 @@
 
     <div style="border: 1px solid green">
       <h4 style="background-color: green ;color: white">Login</h4>
-      <form action="login_action.php" method="post">
-       Username:  <br>  <input type="text" placeholder="Enter Username" name="username" required>
-       <br>
-       Password : <br> <input type="password" placeholder="Enter Password" name="psw" required>
-       <br>
+      <form action="replogin_action.php" method="post">
+       Organization ID:  <br>  <input type="text" placeholder="Enter your organization ID or License number" name="license" required><br>
+       Personal ID:  <br>  <input type="text" placeholder="Enter your perosnal ID" name="natid" required><br>
+       Password : <br> <input type="password" placeholder="Enter Password" name="psw" required><br>
        <input type="submit" name="submit"  value="login" style="position: center">
       </form>
-
-      <a href="replogin.html">Login as representative</a>
 
     </div>
 

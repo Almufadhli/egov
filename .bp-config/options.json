@@ -1,0 +1,7 @@
+{
+    "PHP_VERSION" : "{PHP_72_LATEST}",
+    "WEB_SERVER" : "nginx",
+    "COMPOSER_VERSION": "",
+    "COMPOSER_INSTALL_OPTIONS": ""
+
+}

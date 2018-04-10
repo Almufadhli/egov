@@ -4,30 +4,46 @@ session_start();
 require_once(realpath(dirname(__FILE__) . "/../users/user.model.php"));
 $User = new User();
 
-if (isset($_POST)){
-  $natid = $_POST['nationalID'];
-  $user = $_POST['username'];
-  $email = $_POST['email'];
-  $psw = $_POST['psw'];
+if (isset($_REQUEST)){
 
-  //$userArray = array($natid, $user, $email, $psw);
+  $natId = $_REQUEST['myid'];
+  $user = $_REQUEST['username'];
+  $email = $_REQUEST['email'];
+  $psw = $_REQUEST['psw'];
 
 
-  $createUserRes = $User->createUser($natid, $user, $email, $psw);
+  $createUserRes = $User->createUser($natId, $user, $email, $psw);
   var_dump($createUserRes);
 
-  if ($createUserRes) {
+  if ($createUserRes == 1) {
     header("Location: login.html");
   } elseif ($createUserRes == -1) {
-    header("Location: register.html");
-  } elseif ($createUserRes == -1) {
-    header("Location: register.html");
+    echo "<script>
+    alert('The ID you entered doesn't exist or is invalid!');
+    window.location.href='register.html';
+    </script>";
+  } elseif ($createUserRes == -2) {
+    echo "<script>
+    alert('The username you entered is already used!');
+    window.location.href='register.html';
+    </script>";
+  } elseif ($createUserRes == -3) {
+    echo "<script>
+    alert('The email you entered is already used!');
+    window.location.href='register.html';
+    </script>";
+  } elseif ($createUserRes == -4) {
+    echo "<script>
+    alert('The ID you entered is already used!');
+    window.location.href='register.html';
+    </script>";
   } else {
     header("Location: register.html");
   }
 
 } else {
   echo "Error: 400";
+  var_dump($_REQUEST);
 }
 
 

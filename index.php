@@ -1,15 +1,12 @@
 <?php
 
-echo "Hello asddasdasdasdas";
 
 define("ROOT_PATH", __DIR__);
-echo "root path defined";
 
 session_start();
 echo "session started";
 
 require_once(ROOT_PATH."/users/user.model.php");
-echo "required usermodel";
 
 
 $User = new User();
@@ -235,7 +232,7 @@ var_dump($User);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#myPage"><img src="images/logo.png"></a>
+      <a class="navbar-brand" href="#myPage"><img src="resources/images/logo.png"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -264,15 +261,15 @@ var_dump($User);
   <h2>Sign up</h2>
   <div class="row slideanim">
     <div class="col-sm-4">
-     <a href="portal/login.html"><img src="images/login.png" width="50" height="50"></a>
+     <a href="portal/login.html"><img src="resources/images/login.png" width="50" height="50"></a>
        <h4>Login</h4>
     </div>
     <div class="col-sm-4">
-     <a href="portal/register.html"><img src="images/newuser.png" width="50" height="50"></a>
+     <a href="portal/register.html"><img src="resources/images/newuser.png" width="50" height="50"></a>
       <h4>Register</h4>
     </div>
     <div class="col-sm-4">
-     <a href= "portal/r-password.html" > <img src="images/password.png" width="50" height="50"> </a>
+     <a href= "portal/r-password.html" > <img src="resources/images/password.png" width="50" height="50"> </a>
       <h4>Password Recovery</h4>
     </div>
        <br><br>
@@ -292,7 +289,7 @@ var_dump($User);
 
     </div>
     <div class="col-sm-4">
-      <span class=""><img src="images/logo.png" height="300" width="300"></span>
+      <span class=""><img src="resources/images/logo.png" height="300" width="300"></span>
     </div>
   </div>
 </div>
@@ -307,21 +304,21 @@ var_dump($User);
   <div class="row text-center slideanim">
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="images/ed.png" alt="kau"  width="50px" height="50px" style="height:150px;">
+        <img src="resources/images/ed.png" alt="kau"  width="50px" height="50px" style="height:150px;">
         <p><strong>Education</strong></p>
         <p>King Abdulaziz University </p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="images/ws.jpg" alt="Kau hospatil" width="50px" height="60px" style="height: 150px;">
+        <img src="resources/images/ws.jpg" alt="Kau hospatil" width="50px" height="60px" style="height: 150px;">
         <p><strong>Health</strong></p>
         <p>Kau Hospital</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="images/wa.jpg" alt="JOB3" width="50px" height="50px"  style="height: 150px;">
+        <img src="resources/images/wa.jpg" alt="JOB3" width="50px" height="50px"  style="height: 150px;">
         <p><strong>work </strong></p>
         <p>KAU</p>
       </div>
