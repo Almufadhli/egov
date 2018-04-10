@@ -1,21 +1,12 @@
 <?php
 
-$options = ['cost' => 10];
-$pass1 = "abcd";
-$pass2 = "abcd";
-$hash1 = password_hash($pass1, PASSWORD_DEFAULT, ['cost' => 10]);
-$hash2 = password_hash($pass2, PASSWORD_DEFAULT, ['cost' => 12]);
+echo "testing mongodb connection";
+//$client = new MongoDB\Client;
+$client = new MongoDB\Client("mongodb://Almufadhli:AMsa1405747@cluster0-shard-00-00-qcbzr.mongodb.net:27017,cluster0-shard-00-01-qcbzr.mongodb.net:27017,cluster0-shard-00-02-qcbzr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
 
-echo "Hashed pass1: ".$hash1;
-echo "<br>";
-echo "Hashed pass2: ".$hash2;
-
-echo "<br> Verify h1";
-echo password_verify($pass1, $hash1);
-
-
-echo "<br> Verify h2";
-echo password_verify("abcd", $hash2);
+foreach ($client->listDatabases() as $databaseInfo) {
+    var_dump($databaseInfo);
+}
 
 
 

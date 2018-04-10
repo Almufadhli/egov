@@ -1,21 +1,4 @@
-<?php
 
-
-define("ROOT_PATH", __DIR__);
-
-session_start();
-echo "session started";
-
-require_once(ROOT_PATH."/users/user.model.php");
-
-
-$User = new User();
-
-//echo ROOT_PATH . '/test';
-
-var_dump($User);
-
-?>
 
 
 
@@ -221,7 +204,24 @@ var_dump($User);
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" onpageshow="myFunction()">
+  <?php
+  echo "welcome to the site";
 
+  define("ROOT_PATH", __DIR__);
+
+  session_start();
+  echo "session started";
+
+  require_once(ROOT_PATH."/users/user.model.php");
+
+  echo __DIR__;
+  echo "<br>";
+  echo ROOT_PATH;
+
+  $User = new User();
+
+
+  ?>
 
 
 <nav class="navbar navbar-default navbar-fixed-top">
