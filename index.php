@@ -1,20 +1,15 @@
 
-
-
 <?php
-echo "welcome to the site";
 
 define("ROOT_PATH", __DIR__);
-
 session_start();
-echo "session started";
 
 require_once(ROOT_PATH."/users/user.model.php");
-
 $User = new User();
 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

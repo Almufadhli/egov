@@ -7,13 +7,13 @@
  $config = array(
      "mongoConnectionString" => "mongodb://Almufadhli:AMsa1405747@cluster0-shard-00-00-qcbzr.mongodb.net:27017,cluster0-shard-00-01-qcbzr.mongodb.net:27017,cluster0-shard-00-02-qcbzr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
      "urls" => array(
-         "baseUrl" => "http://egov.com"
+         "baseUrl" => "http://egovisc.com"
      ),
      "paths" => array(
          "resources" => "/resources",
          "images" => array(
-             "content" => $_SERVER["DOCUMENT_ROOT"] . "/images/content",
-             "layout" => $_SERVER["DOCUMENT_ROOT"] . "/images/layout"
+             "content" => $_SERVER["DOCUMENT_ROOT"] . "/resources/images/content",
+             "layout" => $_SERVER["DOCUMENT_ROOT"] . "/resources/images/layout"
          )
      )
  );

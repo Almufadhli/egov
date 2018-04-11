@@ -1,7 +1,10 @@
 <?php
-///require_once($_SERVER['DOCUMENT_ROOT']."/phpmongodb/vendor/autoload.php");
+
+require_once(realpath(dirname(__FILE__)."/../vendor/autoload.php"));
 require_once(realpath(dirname(__FILE__) . "/../resources/config.php"));
 //require_once(LIBRARY_PATH . "/templateFunctions.php");
+
+
 
 /**
 *
