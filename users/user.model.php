@@ -1,5 +1,4 @@
 <?php
-
 require_once(realpath(dirname(__FILE__)."/../vendor/autoload.php"));
 require_once(realpath(dirname(__FILE__) . "/../resources/config.php"));
 //require_once(LIBRARY_PATH . "/templateFunctions.php");
@@ -12,7 +11,7 @@ require_once(realpath(dirname(__FILE__) . "/../resources/config.php"));
 class User
 {
 
-  private $sessionName;
+  private $sessionName = "egov";
 
   public $logged_in = false;
   public $userData;
@@ -21,16 +20,15 @@ class User
 
   function __construct()
   {
-
+    //session_start();
     // get the session_ID and then check if it's empty (empty means no session was started)
     $sessionId = session_id();
     if(strlen($sessionId) == 0)
-    throw new Exception("No session has been started.\n<br />Please add `session_start();` initially in your file before any output.");
+    throw new Exception("No session has been started.<br>Please add `session_start();` initially in your file before any output.");
 
-    $mongo = new MongoDB\Client("mongodb://Almufadhli:AMsa1405747@cluster0-shard-00-00-qcbzr.mongodb.net:27017,cluster0-shard-00-01-qcbzr.mongodb.net:27017,cluster0-shard-00-02-qcbzr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
+    $mongo = new MongoDB\Client;
     $db = $mongo->egov;
-
-    $_SESSION["db"] = $db;
+    //$_SESSION["db"] = $db;
 
     $peopleCollection = $db->people;
     $usersCollection = $db->users;
@@ -47,7 +45,8 @@ class User
   */
 
   public function createUser($natid, $user, $email, $psw){
-    $db = $_SESSION["db"];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
     $peopleCollection = $db->people;
     $usersCollection = $db->users;
 
@@ -98,8 +97,9 @@ class User
   }
 
 
-  public function createRepUser($license, $id, $email, $psw){
-    $db = $_SESSION["db"];
+  public function createRepUser($license, $id, $email, $code){
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
 
     $orgsCollection = $db->organizations;
     $peopleCollection = $db->people;
@@ -109,6 +109,12 @@ class User
     $findPersonResult = $peopleCollection->findOne(['natId' => $id]);
     $findUserResult = $usersCollection->findOne(['entityId' => $license]);
 
+    // check if the user exists
+    foreach ($findOrgResult['employees'] as $key => $value) {
+      if ($value['empId'] == $id){}
+        return $key;
+      }
+    }
 
     $hash = password_hash($psw, PASSWORD_DEFAULT, ['cost' => 10]);
 
@@ -168,6 +174,59 @@ class User
     }
   }
 
+
+public function createNewInst($instid, $idowner, $email, $psw)
+{
+  $mongo = new MongoDB\Client;
+  $db = $mongo->egov;
+
+  $orgsCollection = $db->organizations;
+  $peopleCollection = $db->people;
+  $usersCollection = $db->users;
+
+  // check if the institution exists and doesn't ahve an account
+  $findOrgResult = $orgsCollection->findOne(['license' => $instid]);
+  $findUserResult = $usersCollection->findOne(['entityId' => $idowner, 'userType' => 'owner']);
+
+  // validate the owner id
+  $validOwner = $findOrgResult['owner'] == $idowner;
+
+  $hash = password_hash($psw, PASSWORD_DEFAULT, ['cost' => 10]);
+
+  // $now specifies the time of creation
+  $now = null;
+  $now = new MongoDB\BSON\UTCDateTime((new DateTime($now))->getTimestamp()*1000);
+
+  if ($findOrgResult && !$findUserResult && $validOwner) {
+
+    $orgDoc = array(
+      "entityId" => $idowner,
+      "userType" => "owner",
+      "inst" => $instid,
+      "email" => $email,
+      "password" => $hash,
+      "createdAt" => $now
+    );
+
+
+    $insertOrg = $usersCollection->insertOne($orgDoc);
+    return 1;
+
+  } elseif (!$findOrgResult) {
+    return -1; // invalid organization id
+  } elseif ($findUserResult) {
+    return -2; // org already has an account
+  } elseif (!$validOwner) {
+    return -3; // you're not the owner
+  } else {
+    return -4; // error
+  }
+
+
+}
+
+
+
   /**
   * return true if the user was logged in succefully
   * If not, it returns (bool)false.
@@ -177,7 +236,8 @@ class User
   */
 
   public function loginUser( $username, $password ){
-    $db = $_SESSION["db"];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
 
     $peopleCollection = $db->people;
     $usersCollection = $db->users;
@@ -191,64 +251,77 @@ class User
       // if the username exists and the password is correct, get the _id
       $entityId = $findUsernameResult['entityId'];
       // then match that _id with the natioanlId of the person in the people collection
-      $person = $peopleCollection->findOne(['natId'=>$entityId]);
+      //$person = $peopleCollection->findOne(['natId'=>$entityId]);
       // and assigned the sessionName of "this" object to its _id
-      $_SESSION[$this->sessionName]["userId"] = $entityId;
+      //$_SESSION[$this->sessionName]["userId"] = $entityId;
+      $_SESSION[$this->sessionName]['userid'] = $entityId;
       $this->logged_in = true;
       // so that we can retirieve all of his/her information
 
-      echo "Logged in";
-      return true;
+      //echo "Logged in";
+      return "1".$entityId;
+    } elseif (!$findUsernameResult && $verifyPassword) {
+      //echo "Username doesn't exist";
+      return -1;
+    } elseif ($findUsernameResult && !$verifyPassword) {
+      //echo "Wrong password";
+      return -2;
     } else {
-      echo "Wrong password or username";
-      return false;
+      //echo "Invalid username or password, please try again";
+      return -3;
     }
   }
 
-  public function loginRepUser( $license, $natId, $password ){
-    $db = $_SESSION["db"];
+  public function loginRepUser( $natId, $password ){
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
 
-    $orgsCollection = $db->organizations;
-    $peopleCollection = $db->people;
     $usersCollection = $db->users;
 
-    $findOrgResult = $orgsCollection->findOne(['license' => $license]);
-    $findPersonResult = $peopleCollection->findOne(['natId' => $natId]);
-    $findUserResult = $usersCollection->findOne(['entityId' => $license]);
-
-    $hashedPass;
-
-    // check if personId exists in the entity users
-    foreach ($findUserResult["users"] as $doc) {
-      if ($doc["personId"] == $natId){
-        $hashedPass = $doc["password"];
-      } else {
-        return "ID is wrong";
-      }
-    }
+    //$findOrgResult = $orgsCollection->findOne(['license' => $license]);
+    $findUserResult = $usersCollection->findOne(['entityId' => $natId]);
+    $hashedPass = $findUserResult['password'];
 
     // check if license is valid, and the id exists, and the user exists
-    if ($findOrgResult && $findPersonResult && $findUserResult){
+    if ($findUserResult){
 
       // verify the password with the password of the username in the database (it's encrypted)
       $verifyPassword = password_verify($password, $hashedPass);
 
-      // if the username exists and the password is correct, get the _id
-      $entityId = $findUserResult['entityId'];
+      if ($verifyPassword) {
+        // and assigned the sessionName of "this" object to its _id
+        $_SESSION[$this->sessionName]["userId"] = $entityId;
+        $this->logged_in = true;
 
-      // and assigned the sessionName of "this" object to its _id
-      $_SESSION[$this->sessionName]["userId"] = $entityId;
-      $this->logged_in = true;
-      // so that we can retirieve all of his/her information
-
-      echo "Logged in";
-      return true;
+        return 1;
+      } else {
+        return -1; // wrong password
+      }
     } else {
-      echo "Wrong password or username";
-      return false;
+      return -2; // wrong username
     }
   }
 
+public function saveSession()
+{
+  $_SESSION["savetest"] = "saved";
+}
+
+public function newInstitution($instId, $ownerId, $name, $email, $pass, $field, $location)
+{
+  $mongo = new MongoDB\Client;
+  $db = $mongo->egov;
+
+  $orgsCollection = $db->organizations;
+  $peopleCollection = $db->people;
+  $usersCollection = $db->users;
+
+  $validOwnerId = $peopleCollection->findOne(['natId' => $ownerId]);
+
+  return $validOwnerId;
+
+
+}
 
   // these function are to come
   public function logoutUser()
@@ -258,7 +331,8 @@ class User
 
   public function getUser($userId)
   {
-    $db = $_SESSION["db"];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
     $peopleCollection = $db->people;
 
     if (!$userId == 0) {
@@ -287,7 +361,8 @@ class User
   public function newRecord($id)
   {
 
-    $db = $_SESSION["db"];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
 
     $HRC = $db->healthRecords;
     $ERC = $db->educationRecords;
@@ -321,13 +396,15 @@ class User
 
   public function updateHealthRecord($id)
   {
-    $db = $_SESSION["db"];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
     $HRC = $db->healthRecords;
   }
 
   public function displayHealthRecords($id)
   {
-    $db = $_SESSION['db'];
+    $mongo = new MongoDB\Client;
+    $db = $mongo->egov;
     $HRC = $db->healthRecords;
 
     return $HRC->findOne(['personId' => $id]);

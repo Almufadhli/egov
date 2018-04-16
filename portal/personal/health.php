@@ -6,7 +6,7 @@
      <title></title>
    </head>
    <body>
-     
+
    </body>
  </html>
 
@@ -17,6 +17,5 @@
  require_once(realpath(dirname(__FILE__) . "/../../users/user.model.php"));
 
  $User = new User();
- $test = "test";
 
   ?>

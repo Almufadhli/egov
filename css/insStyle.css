@@ -1,0 +1,106 @@
+
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+
+    
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      background-color: green;
+      color: white;
+    }
+    .active a{
+
+        background-color: green;
+    }
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height:100%;}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: white;
+      height: 100%;
+    }
+    col-sm-7{
+
+        background-color: white;
+    }
+.al{
+
+    background-color: white;
+    color: green;
+    
+    border: 1px solid green;
+    height: 30px;
+    position: center;
+    float: center;
+}  
+
+.al a {
+
+    color: green;
+    direction: none;
+}
+    
+   
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+    float:button;
+      }
+      .row.content {height:auto;} 
+      .al{
+
+    position: center;
+ padding: 0px  20px 0px  40px;
+}  
+    }
+
+    input[type=text] {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+input[type=password] {
+    width: 20%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+input[type=email] {
+    width: 20%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+select#soflow-color {
+   color: white;
+     width:20%;
+    background-color: green;
+  font-size: 12pt;
+  
+   height: 40px;
+   text-align: center;
+   position: center;
+}
+input[type=submit] {
+    width: 20%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: white;
+    background-color: green;
+}
+input[type=email] {
+    width:100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
