@@ -6,7 +6,6 @@ $User = new User();
 
  ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +16,10 @@ $User = new User();
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 
-<link href="./css/main.css" rel="stylesheet" type="text/css">
-	 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-
+<link href="./global/main.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./js/matchpasswords.js" language='javascript' type='text/javascript' ></script>
 
 
  </head>
@@ -56,7 +54,6 @@ $User = new User();
 <div class="jumbotron text-center">
   <h1>Service Center</h1>
   <p>Your online profile</p>
-
 </div>
 
 <!-- *************************************************** sign up*************************************************** -->
@@ -74,7 +71,7 @@ $User = new User();
     </div>
     <div class="col-sm-4">
      <a href="#" onclick="newpass()" > <img src="./resources/images/imgMp/Password.png"> </a>
-      <h4>Password Recovery </h4>
+      <h4>Password Recovery</h4>
     </div>
        <br><br>
    </div>
@@ -83,28 +80,30 @@ $User = new User();
 <div id="signup2" class="container-fluid text-center"  style="display:none;">
   <h2>sign up</h2>
   <div class="row slideanim">
-  <div class="col-sm-4">
-    <h4 style="background-color: green ;color: white ">Login</h4>
+  <div class="col-sm-4"  style="border: 1px solid green" >
+    <h4 style="background-color: green ;color: white ">Login as</h4>
 
       <form  name="fromlogin"  action = "./portal/login_action.php" method="post" >
         <select id="soflow-color" name="type">
-           login as
            <option value="1" name="t">individual user</option>
-           <option value="2" name="t">representative user or owner</option>
+           <option value="2" name="t">representative user</option>
         </select>
-        <br>
-       Username:  <br>  <input type="text" placeholder="For representatives enter your ID"  name="iduser" id="iduser"  required="required">
+      <br>
+       Username:  <br>  <input type="text" name="iduser" id="iduser" placeholder="For representatives enter your ID" required="required">
+
        <br>
        Password: <br> <input type="password" name="password"  required="required" id="password">
        <br>
         <input type="submit"  name="login" id="submit" value="Login" >
         <?php if(isset($_SESSION['ErrorMsg'])) { ?>
-          <span class="errorMsg" color="red" id="validation" value="$_SESSION['ErrorMsg']"></span>
-        <?php } unset($_SESSION['ErrorMsg']) ?>
-
+        <span class="errorMsg" color="red" id="validation">Username or Password is Incorrect. Please try again</span>
+      <?php } unset($_SESSION['ErrorMsg']) ?>
       </form>
 
     </div>
+
+
+
 
 
      <div class="col-sm-4">
@@ -155,23 +154,20 @@ $User = new User();
 
 <!--  **************************************  individual   **************************************************** -->
  <div id="individualtype" style="display: none;">
-   <h4 style="background-color: green ;color: white ">individual user</h4>
-
+ <h4 style="background-color: green ;color: white ">individual user</h4>
    <div class="ind-reg-container">
       <form name="" action="./portal/register_action.php" method='post' onsubmit="return chk()" >
-      ID:  <br>  <input type="text" name="iduser" required="required" maxlength="10" manlength="10" id="iduser" pattern="^(0|[1-9][0-9]*)$"
-       title="Must be number">
+      ID:  <br>  <input type="text" name="iduser" >
       <br>
-      Username:  <br>  <input type="text" name="username"required  >
+      Username:  <br>  <input type="text" name="username"  >
       <br>
-      Email:  <br>  <input type="email" name="email"  required>
+      Email:  <br>  <input type="email" name="email"  >
       <br>
-      Password: <br> <input id="password" type="password" name="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"  >
+      Password: <br> <input type="password" name="password" required="required">
       <br>
-      Repeat Password: <br> <input type="password" name="rpassword" required="required" id="rpassword2" onkeyup="checkPass(); return false;"
-      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+      Repeat Password: <br> <input type="password" name="rpassword" required="required">
       <br>
-      <input type="submit"  style="position: center; background-color:green color:white" onclick="check();" value="SIGN UP">
+      <input type="submit"  style="position: center; background-color:green color:white" onsubmit="return validateForm()" value="SIGN UP">
       </form>
         <br>
       Register as  <a href="#" onclick="ruser()">representative user</a>
@@ -179,128 +175,63 @@ $User = new User();
       <br>
       Have an account already? <a href="#" onclick="ins()" >Login</a>
     </div>
-</div>
 
-<script type="text/javascript">
-  function checkPass()
-{    var pass1 = document.getElementById('password1');
-     var pass2 = document.getElementById('rpassword2');
-     var message = document.getElementById('confirmMessage');
+  </div>
 
-    var goodColor = "#99CC99";
-    var badColor = "#DC1D1D";
 
-    if(pass1.value == pass2.value){
-        pass2.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
-        message.innerHTML = "Passwords Match!"
-        }else{
 
-        pass2.style.backgroundColor = badColor;
 
-        message.style.color = badColor;
-        message.innerHTML = "Passwords Do Not Match!"
-    }
-}
-</script>
+
+
+
 <!--*********************************************representative******************************************************** -->
-<div id="representativetype" style="display: none;">
-   <h4 style="background-color: green ;color: white ">representative user</h4>
+    <div id="representativetype" style="display: none;">
+       <h4 style="background-color: green ;color: white ">representative user</h4>
 
-      <form  name="" action="./portal/repregister_action.php" method='post' >
-         Employee ID:<br>  <input placeholder="Enter your national ID" type="text" name="empid" required="required" maxlength="10" minlength="10" pattern="^(0|[1-9][0-9]*)$" >
-         <br>
-         Username: <br> <input type="text" name="username" placeholder="Set a username" required="required">
-         <br>
-         Password: <br> <input type="password" name="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" id="password3">
-         <br>
-         Repeat Password: <br> <input type="password" name="rpassword" required="required" id="rpassword4" onkeyup="checkPass2(); return false;">
-		 <span id="confirmMessage2" class="confirmMessage"></span>
-         <br>
-         Authorization Code: <input placeholder="Enter the code you were given, Example: 123456" type="text" name="authcode" minlength="6" maxlength="6"  pattern="^(0|[1-9][0-9]*)$">
-         <br>
-         <input type="hidden" name="ref" value="rep">
-         <input type="submit"  style="position: center; background-color:green color:white" onsubmit="return validateForm()" value="SIGN up">
-      </form>
+          <form  name="" action="" method='post' >
+             Employee ID:<br>  <input placeholder="Enter your personal employee ID" type="text" name="empid">
+             <br>
+             Password: <br> <input type="password" name="password" required="required">
+             <br>
+             Repeat Password: <br> <input type="password" name="rpassword" required="required">
+             <br>
+             Authorization Code <input placeholder="Enter the code you were given, Example: 123456" type="text" name="authcode" >
+             <br>
+             <input type="submit"  style="position: center; background-color:green color:white" onsubmit="return validateForm()" value="SIGN up">
+          </form>
 
 
- <br>
-Register as <a href="#"onclick="iuser()">individual user</a>
-Or <a href="#"onclick="ins()">Institution owner</a>
-<br>
-You have an account? <a   href="#" onclick="login()">login</a>
-</div>
+     <br>
+    Register as <a href="#"onclick="iuser()">individual user</a>
+    Or <a href="#"onclick="ins()">Institution owner</a>
+    <br>
+    You have an account? <a   href="#" onclick="login()">login</a>
+  </div>
 
-<script type="text/javascript">
-  function checkPass2()
-{    var pass1 = document.getElementById('password3');
-     var pass2 = document.getElementById('rpassword4');
-     var message = document.getElementById('confirmMessage2');
-
-    var goodColor = "#99CC99";
-    var badColor = "#DC1D1D";
-
-    if(pass1.value == pass2.value){
-        pass2.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
-        message.innerHTML = "Passwords Match!"
-        }else{
-
-        pass2.style.backgroundColor = badColor;
-
-        message.style.color = badColor;
-        message.innerHTML = "Passwords Do Not Match!"
-    }
-}
-</script>
  <!-- *****************************************  Institution  ********************************************************* -->
 
- <div id="Institutionreg" style="display: none;">
-     <h4 style="background-color: green ;color: white ">Institution owner</h4>
-       <form  name="" action="./portal/newinst.php" method='post' >
-            Institution ID:<br>  <input type="text" name="idinst" pattern="^(0|[1-9][0-9]*)$" maxlength="7" minlength="7" required="required">
-            <br>
-            Personal ID:<br>  <input type="text" name="iduser" maxlength="10" maxlength="10" pattern="^(0|[1-9][0-9]*)$" required="required">
-            <br>
-            Email:  <br>  <input type="email" name="email" required="required">
-            <br>
-            password: <br> <input type="password" name="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" id="password5">
-            <br>
-            Repeat Password: <br> <input type="password" name="rpassword" required="required" onkeyup="checkPass3(); return false;"
-            pattern ="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" id="rpassword6">
-            <br>
-			<span id="confirmMessage3" class="confirmMessage"></span>
-            <input type="submit"  style="position: center; background-color:green color:white" onsubmit="return validateForm()" value="Sign up">
-       </form>
-      <br>
-      Register as  <a href="#" onclick="ruser()">representative user</a>
-      Or <a href="#"onclick="iuser()">individual user</a>
-      <br>
-      You have an account? <a   href="#" onclick="login()" >login</a>
- </div>
 
-<script type="text/javascript">
-  function checkPass3()
-{    var pass1 = document.getElementById('password5');
-     var pass2 = document.getElementById('rpassword6');
-     var message = document.getElementById('confirmMessage3');
-
-    var goodColor = "#99CC99";
-    var badColor = "#DC1D1D";
-
-    if(pass1.value == pass2.value){
-        pass2.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
-        message.innerHTML = "Passwords Match!"
-        }else{
-
-        pass2.style.backgroundColor = badColor;
-
-        message.style.color = badColor;
-        message.innerHTML = "Passwords Do Not Match!"
-    }
-}
-</script>
+<div id="Institutionreg" style="display: none;">
+    <h4 style="background-color: green ;color: white ">Institution owner</h4>
+      <form  name="" action="./portal/newinst.php" method='post' >
+           Institution ID:<br>  <input type="text" name="idinst">
+           <br>
+           Personal ID:<br>  <input type="text" name="iduser">
+           <br>
+           Email:  <br>  <input type="email" name="email">
+           <br>
+           password: <br> <input type="password" name="password" required="required">
+           <br>
+           Repeat Password: <br> <input type="password" name="rpassword" required="required">
+           <br>
+           <input type="submit"  style="position: center; background-color:green color:white" onsubmit="return validateForm()" value="Sign up">
+      </form>
+     <br>
+     Register as  <a href="#" onclick="ruser()">representative user</a>
+     Or <a href="#"onclick="iuser()">individual user</a>
+     <br>
+     You have an account? <a   href="#" onclick="login()" >login</a>
+</div>
 
  <!-- ********************************************************************************************************************************* -->
 
@@ -368,63 +299,31 @@ You have an account? <a   href="#" onclick="login()">login</a>
     </div>
     <div class="col-sm-4">
 
-       <div>
+       <div style="border: 1px solid green">
       <h4 style="background-color: green ;color: white">Password Recovery </h4>
-      <form action="" method="post">
-		<select id="soflow-color" name="type">
-           Account as
-           <option value="ind" name="ind">Individual User</option>
-           <option value="rep" name="rep">Representative User</option>
-           <option value="owner" name="owner">Institution Owner</option>
-        </select>
-       Username:<br> <input type="text" name="id" required="required" placeholder="For representatives and owners, enter your ID">
+      <form>
+       Username:  <br>  <input type="text" name="id" value="username" required="required">
        <br>
-       Email:<br>  <input type="email" name="email" required="required">
+       Email: <br>  <input type="email" name="email" value="example@example.com" required="required">
        <br>
-       <input type="submit" name="submitpass"  value="send"  style="position: center; background-color:green">
+       <input type="submit" name="submit"  value="send"  style="position: center; background-color:green">
       </form>
 
     </div>
-	<!-- comment1 -->
-
    </div>
    </div>
 
-<?php
 
-if (isset($_POST["submitpass"])) {
- $id = $_POST['id'];
- $email = $_POST['email'];
- $type = $_POST['type'];
-
-$newPass = $User->recoverPassword($id, $type, $email);
-
-if ($newPass != -1 && $newPass != -2) {
-  $pass = $newPass;
-  $em = $_POST["email"];
-  $to = $em;
-  $from = "almufadhli@gmail.com";
-  $message = $pass;
-  $message = wordwrap($message, 70);
-  $headers = "From:" . $from;
-  $subject = "Password recovery";
-  $test = mail($to , $subject, $message, $headers);
-
-
-} elseif ($newPass == -1) {
-  echo "<script>alert('The email you entered is wrong')</script>";
-} else {
-  echo "<script>alert('You entered a wrong ID or Username')</script>";
-}
-
-}
-
- ?>
 
 </div>
 
 
+ <?php
 
+#password  php
+
+
+    ?>
 
 
 <script>
@@ -472,15 +371,13 @@ if ($newPass != -1 && $newPass != -2) {
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2  style="color: green">About </h2><br>
-		<div  style="border: 2px solid green;">
-      <p>This site is a site to save user data. It is a file cabinet that the user can get his files at any time and at any place.</p><br>
-		<hr color ="green">
+      <h2>About </h2><br>
+      <h4>This site is a site to save user data. It is a file cabinet that the user can get his files at any time and at any place.</h4><br>
       <p>It includes files for several specific sections: eg health section, scientific section and practical section. In addition, each of these sections can view their own reports related to this person in the presence of the protection and confidentiality of information.</p>
-	</div>
+
     </div>
     <div class="col-sm-4">
-      <span class="img"><img src="./resources/images/logo.png" height="200" width="200"></span>
+      <span class=""><img src="./resources/images/logo.png" height="300" width="300"></span>
     </div>
   </div>
 </div>
@@ -490,28 +387,28 @@ if ($newPass != -1 && $newPass != -2) {
 
 
 <div id="news" class="container-fluid   text-center ">
-  <h2 style="color: green">NEWS</h2><br>
+  <h2>News</h2><br>
 
   <div class="row text-center slideanim">
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="./resources/images/imgMp/ed.png" alt="kau"  width="50px" height="50px" style="height:150px;">
-        <p><strong style="color: green">Education</strong></p>
-        <p style="color: green">King Abdulaziz University </p>
+        <p><strong>Education</strong></p>
+        <p>King Abdulaziz University </p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="./resources/images/imgMp/ws.jpg" alt="Kau hospatil" width="50px" height="60px" style="height: 150px;">
-        <p><strong style="color: green">Health</strong></p>
-        <p style="color: green">Kau Hospital</p>
+        <p><strong>Health</strong></p>
+        <p>Kau Hospital</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="./resources/images/imgMp/wa.jpg" alt="JOB3" width="50px" height="50px"  style="height: 150px;">
-        <p><strong style="color: green">work </strong></p>
-        <p style="color: green">KAU</p>
+        <p><strong>work </strong></p>
+        <p>KAU</p>
       </div>
     </div>
   </div><br>
@@ -528,24 +425,24 @@ if ($newPass != -1 && $newPass != -2) {
 
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <h4 style="color: green">"Health"<br><span>Kau Hospital</span></h4>
+        <h4>"Health"<br><span>Kau Hospital</span></h4>
       </div>
       <div class="item">
-        <h4 style="color: green">"work."<br><span>KAU</span></h4>
+        <h4>"work."<br><span>KAU</span></h4>
       </div>
       <div class="item">
-        <h4 style="color: green">"Education"<br><span>King Abdulaziz University</span></h4>
+        <h4>"Education"<br><span>King Abdulaziz University</span></h4>
       </div>
     </div>
 
 
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only" style="color: green">Previous</span>
+      <span class="sr-only">Previous</span>
     </a>
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only" style="color: green">Next</span>
+      <span class="sr-only">Next</span>
     </a>
   </div>
 </div>
@@ -553,7 +450,7 @@ if ($newPass != -1 && $newPass != -2) {
 
 <div id="goal" class="container-fluid bg-grey">
   <div class="text-center">
-    <h2 style="color: green">OUR GOAL</h2>
+    <h2>OUR GOAL</h2>
 
   </div>
   <div class="row slideanim">
@@ -607,25 +504,25 @@ if ($newPass != -1 && $newPass != -2) {
 
 
 <div id="contact" class="container-fluid ">
-  <h2 class="text-center" style="color: green">CONTACT</h2>
+  <h2 class="text-center">CONTACT</h2>
   <div class="row">
     <div class="col-sm-5">
-      <p>Contact us.</p>
+      <p>Contact us and we'll get back to you within 24 hours.</p>
       <p><span class="glyphicon glyphicon-map-marker"></span> jaddah, KSA</p>
       <p><span class="glyphicon glyphicon-phone"></span> +00966571405435</p>
       <p><span class="glyphicon glyphicon-envelope"></span> cpcs_499@gmail.com </p>
     </div>
     <div class="col-sm-7 slideanim">
       <div class="row">
-       <form action="" method="post">
+       <form>
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required="required">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
         </div>
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required="required">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
         </div>
       </div>
-      <textarea class="form-control" id="comments" name="comments" maxlength="70" placeholder="Comment" rows="5" required="required"></textarea><br>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
       <div class="row">
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit" name="send">Send</button>
@@ -638,25 +535,8 @@ if ($newPass != -1 && $newPass != -2) {
 </div>
 
 
-	<?php
-
-if (isset($_POST["send"])) {
-
-//if and else
- $text =$_POST["comments"];;
- $em= "almufadhli@gmail.com";
- $to = $em;
- $from = $_POST["email"];
- $message ="Hi ".$em.", \r\n "
-   .$text.". \r\n Thanks, \r\n".$from;
- $message = wordwrap($message, 70);
- $headers = "From:" . $to;
- $subject = "تواصل معنا ";
- mail($to , $subject, $message, $headers);
- }
- ?>
-<footer class="container-fluid bg-grey text-center bg-grey" style="background-color: green;  color:white">
-  <a href="#myPage" title="To Top" style="background-color: white">
+<footer class="container-fluid bg-grey text-center bg-grey">
+  <a href="#myPage" title="To Top">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a>
   <p>design  By M and A for cpcs_499</p>

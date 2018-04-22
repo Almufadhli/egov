@@ -6,6 +6,7 @@ $User = new User();
 $url = $_SERVER['HTTP_REFERER'];
 
 
+
 $instid = $_POST['idinst'];
 $idowner = $_POST['iduser'];
 $email = $_POST['email'];
@@ -20,18 +21,17 @@ if (isset($_POST)){
 
   if ($newInstResult == 1) {
     header("Location: $url");
-  } elseif ($newInstResult) {
-    return -1; // invalid organization id
+  } elseif ($newInstResult == -1) {
     echo "<script>
     alert('The institution ID you entered is invalid!');
     window.location.href='$url';
     </script>";
-  } elseif ($newInstResult) {
+  } elseif ($newInstResult == -2) {
     echo "<script>
     alert('The institution already has an account!');
     window.location.href='$url';
     </script>";
-  } elseif ($newInstResult) {
+  } elseif ($newInstResult == -3) {
     echo "<script>
     alert('You're not the owner of this institution!');
     window.location.href='$url';

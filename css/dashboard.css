@@ -1,0 +1,117 @@
+legend {
+	background-color: green;
+	color: white;
+ }
+
+.mySlides {display: block;}
+
+	.mySlides img {
+		vertical-align: left;
+		width: 100%;
+		height: 200px;
+	 }
+
+/* Slideshow container */
+.slideshow-container {
+	position: relative;
+	margin: auto;
+ }
+
+/* Caption text */
+.text {
+	color: #f2f2f2;
+	font-size: 15px;
+	padding: 8px 12px;
+	position: absolute;
+	bottom: 8px;
+	width: 100%;
+	text-align: center;
+ }
+
+/* Number text (1/3 etc) */
+.numbertext {
+	color: #f2f2f2;
+	font-size: 12px;
+	padding: 8px 12px;
+	position: absolute;
+	top: 0;
+ }
+
+/* The dots/bullets/indicators */
+.dot {
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+ }
+
+.active {background-color: #717171;}
+
+/* Fading animation */
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+ }
+
+@-webkit-keyframes fade {from}
+
+to {opacity: 1}
+
+{}
+
+@keyframes fade {from}
+
+to {opacity: 1}
+
+{}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {.text}
+
+{}
+
+#rc {
+	border: 1px solid green;
+	width: 50%;
+	height: auto;
+ }
+
+#rcrcoinformation {
+	border: 1px solid green;
+	width: 50%;
+	height: auto;
+ }
+
+#homehr {
+	border: 1px solid green;
+	width: 33.3%;
+ }
+
+@media screen and (max-width: 767px) {}
+
+.col-sm-9 {width: 100%;}
+
+#homehr {
+	border: 1px solid green;
+	width: 100%;
+ }
+
+#rc {width: 100%;}
+
+#rcrcoinformation {width: 100%;}
+
+fieldset {
+	display: block;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-top: 0.35em;
+	padding-bottom: 0.625em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	border: 2px groove (internal value);
+ }

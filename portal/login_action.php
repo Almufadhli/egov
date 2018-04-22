@@ -6,6 +6,7 @@ session_start();
 require_once(realpath(dirname(__FILE__) . "/../users/user.model.php"));
 $User = new User();
 
+$referer = $_SERVER['HTTP_REFERER'];
 $msg = '';
 $url = $_SERVER['HTTP_REFERER'];
 if (isset($_POST["iduser"]) && isset($_POST["password"])) {
@@ -35,26 +36,32 @@ if (isset($_POST["iduser"]) && isset($_POST["password"])) {
    $loginRepUserRes = $User->loginRepUser($user, $psw);
 
    if ($loginRepUserRes == 1) {
-     echo "go to rep dashboard";
-     var_dump($loginRepUserRes);
-     header("Location: ./institution.php");
+     header("Location: ./owner.php");
+   } elseif ($loginRepUserRes == 21) {
+     header("Location: ./representative/Hdashboard.php");
+   } elseif ($loginRepUserRes == 22) {
+     header("Location: ./representative/Edashboard.php");
+   } elseif ($loginRepUserRes == 23) {
+     header("Location: ./representative/Wdashboard.php");
    } elseif ($loginRepUserRes == -1) {
-     $msg = "Username doesn't exist";
-     $_SESSION['ErrorMsg'] = $msg;
+     $msg = "The password is wrong";
+     //$_SESSION['ErrorMsg'] = $msg;
    } elseif ($loginRepUserRes == -2) {
-     $msg = "Password is wrong";
-     $_SESSION['ErrorMsg'] = $msg;
+     $msg = "Username is wrong";
+     //$_SESSION['ErrorMsg'] = $msg;
    } else {
      $msg = "Sorry, something went wrong. Please try again";
-     $_SESSION['ErrorMsg'] = $msg;
-     header("Location: $url");
+     //$_SESSION['ErrorMsg'] = $msg;
    }
+
+   echo "<script>
+   alert('$msg!');
+   window.location.href='$referer';
+   </script>";
  }
- echo "'<p color='red'>.$msg <p>'";
 
   } else {
     echo "not set";
-  echo "'<p color='red'>.$msg <p>'";
  }
 
 
