@@ -1,117 +1,140 @@
 legend {
-	background-color: green;
-	color: white;
- }
+background-color:green;
+color:#FFF;
+}
 
-.mySlides {display: block;}
 
-	.mySlides img {
-		vertical-align: left;
-		width: 100%;
-		height: 200px;
-	 }
 
-/* Slideshow container */
+	#rc1,#rc2, #rc3, #rc4 ,#rc5,#rc6 ,#rc7 ,#rc8 ,#rc9{
+	border: 1px solid green ;
+	width:100% ;
+	height :auto;
+
+	}
+#rc button {
+
+background-color: green;
+color: white;
+}
+
+.mySlides {
+display:block;
+}
+
+.mySlides img {
+vertical-align:left;
+width:100%;
+height:200px;
+}
+
 .slideshow-container {
-	position: relative;
-	margin: auto;
- }
+position:relative;
+margin:auto;
+}
 
-/* Caption text */
 .text {
-	color: #f2f2f2;
-	font-size: 15px;
-	padding: 8px 12px;
-	position: absolute;
-	bottom: 8px;
+color:#f2f2f2;
+font-size:15px;
+position:absolute;
+bottom:8px;
+width:100%;
+text-align:center;
+padding:8px 12px;
+}
+
+
+#schools td, #schools th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#schools tr:nth-child(even){background-color: #f2f2f2;}
+
+#schools tr:hover {background-color: #ddd;}
+
+table {
 	width: 100%;
+	border: 1px solid green;
+}
+
+th {
+ padding-top: 12px;
+ padding-bottom: 12px;
+ text-align: center;
+ background-color: #4CAF50;
+ color: white;
+}
+
+th, td {
+	padding: 7px;
 	text-align: center;
- }
+	width: auto;
+	border: 1px solid green;
+}
 
-/* Number text (1/3 etc) */
+
+tr:hover {background-color: #f5f5f5;}
+
 .numbertext {
-	color: #f2f2f2;
-	font-size: 12px;
-	padding: 8px 12px;
-	position: absolute;
-	top: 0;
- }
+color:#f2f2f2;
+font-size:12px;
+position:absolute;
+top:0;
+padding:8px 12px;
+}
 
-/* The dots/bullets/indicators */
 .dot {
-	height: 15px;
-	width: 15px;
-	margin: 0 2px;
-	background-color: #bbb;
-	border-radius: 50%;
-	display: inline-block;
-	transition: background-color 0.6s ease;
- }
+height:15px;
+width:15px;
+background-color:#bbb;
+border-radius:50%;
+display:inline-block;
+transition:background-color .6s ease;
+margin:0 2px;
+}
 
-.active {background-color: #717171;}
+.active {
+background-color:#717171;
+}
 
-/* Fading animation */
 .fade {
-	-webkit-animation-name: fade;
-	-webkit-animation-duration: 1.5s;
-	animation-name: fade;
-	animation-duration: 1.5s;
- }
+-webkit-animation-name:fade;
+-webkit-animation-duration:1.5s;
+animation-name:fade;
+animation-duration:1.5s;
+}
 
-@-webkit-keyframes fade {from}
+to {
+opacity:1;
+}
 
-to {opacity: 1}
-
-{}
-
-@keyframes fade {from}
-
-to {opacity: 1}
-
-{}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {.text}
-
-{}
-
-#rc {
-	border: 1px solid green;
-	width: 50%;
-	height: auto;
- }
-
-#rcrcoinformation {
-	border: 1px solid green;
-	width: 50%;
-	height: auto;
- }
-
-#homehr {
-	border: 1px solid green;
-	width: 33.3%;
- }
-
-@media screen and (max-width: 767px) {}
-
-.col-sm-9 {width: 100%;}
-
-#homehr {
-	border: 1px solid green;
-	width: 100%;
- }
-
-#rc {width: 100%;}
-
-#rcrcoinformation {width: 100%;}
+#homehr, #homeer, #homewr {
+border:1px solid green;
+width:100%;
+}
 
 fieldset {
-	display: block;
-	margin-left: 2px;
-	margin-right: 2px;
-	padding-top: 0.35em;
-	padding-bottom: 0.625em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
-	border: 2px groove (internal value);
- }
+display:block;
+margin-left:2px;
+margin-right:2px;
+border:2px groove (internalvalue);
+padding:.35em .75em .625em;
+}
+
+#rc,#rcrcoinformation {
+border:1px solid green;
+height:auto;
+width:100%;
+}
+
+@media only screen and max-width 300px{
+.text {
+font-size:11px;
+}
+}
+
+@media screen and max-width 768px{
+.col-sm-9 {
+width:100%;
+}
+}
