@@ -56,54 +56,7 @@
             <div class="col-sm-10">
                <div id="home">
                   <h4 style="background-color: green ;color: white ">Home</h4>
-                  <div id="sterment">
-                     <div class="slideshow-container">
-                        <div class="mySlides fade">
-                           <div class="numbertext">1 / 3</div>
-                           <img src="./../../resources/images/ImgUp/health.jpg">
-                           <div class="text">Health Record </div>
-                        </div>
-                        <div class="mySlides fade">
-                           <div class="numbertext">2 / 3</div>
-                           <img src="./../../resources/images/ImgUp/education.jpg">
-                           <div class="text">Educational Record</div>
-                        </div>
-                        <div class="mySlides fade">
-                           <div class="numbertext">3 / 3</div>
-                           <img src="./../../resources/images/ImgUp/work.jpg">
-                           <div class="text">Work Record </div>
-                        </div>
-                     </div>
-                     <br>
-                     <div style="text-align:center">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                     </div>
-                     <script>
-                        var slideIndex = 0;
-                        showSlides();
 
-                        function showSlides() {
-                            var i;
-                            var slides = document.getElementsByClassName("mySlides");
-                            var dots = document.getElementsByClassName("dot");
-                            for (i = 0; i < slides.length; i++) {
-                                slides[i].style.display = "none";
-                            }
-                            slideIndex++;
-                            if (slideIndex > slides.length) {
-                                slideIndex = 1
-                            }
-                            for (i = 0; i < dots.length; i++) {
-                                dots[i].className = dots[i].className.replace(" active", "");
-                            }
-                            slides[slideIndex - 1].style.display = "block";
-                            dots[slideIndex - 1].className += " active";
-                            setTimeout(showSlides, 2000); // Change image every 2 seconds
-                        }
-                     </script>
-                  </div>
                   <div class="col-sm-9" id="homehr">
                      <h4 style="background-color: green ;color: white ">Health Record</h4>
                      <fieldset>
@@ -459,7 +412,7 @@
                         $index = 1;
                         foreach ($medicalReports as $key => $value) {
                           echo "<tr>";
-                          if ($value['type'] != "") {
+                          if (isset($value['type']) && $value['type'] != "") {
                             echo "<td>".$index++."</td>";
                             echo "<td>".$value['type']."</td>";
                             echo "<td>".$value['from']."</td>";
@@ -570,9 +523,10 @@
                         echo "<th>Name</th>";
                         echo "</tr>";
                         $index = 1;
+
                         foreach ($chronicDseases as $key => $value) {
                           echo "<tr>";
-                          if ($value != "" && isset($value)) {
+                          if (isset($value) && $value != null && $value != "") {
                             $index += $key;
                             echo "<td>".$index."</td>";
                             echo "<td>$value</td>";
@@ -582,7 +536,7 @@
                           }
                           echo "</tr>";
 
-                        }
+                       }
 
                         echo "</table>";
 
@@ -827,9 +781,6 @@
 
                         }
 
-                        function refreshPage() {
-                            window.location.reload(false);
-                        }
                      </script>
                      <!-- ##################################################################################################### -->
                      <div id="EDDIV2">
@@ -1731,7 +1682,7 @@
                         echo "</table>";
 
                         ?>
-                
+
                </div>
             </div>
          </div>

@@ -16,6 +16,7 @@ if (isset($_SESSION['egov']['userid'])){
   $userId = $_SESSION['egov']['userid'];
   $person = $peopleCollection->findOne(['natId'=>$userId]);
 
+
   // person details //
   $firstName = $person['firstName'];
   $secondName = $person['secondName'];
@@ -60,6 +61,7 @@ if (isset($_SESSION['egov']['userid'])){
       $medicalVisits = $hrc['medicalVisits'];
 
       $lastDate = $User->getLastDate($medicalVisits);
+
       $keyOfLastDate = $lastDate['index'];
       $desc = "";
       $hospital = "Unknown";
@@ -85,11 +87,25 @@ if (isset($_SESSION['egov']['userid'])){
         $hrcAuths = $hrc['authorizations'];
       }
 
+      if (isset($hrc['allergies'])) {
+        $allergies = $hrc['allergies'];
+      }
 
-      $allergies = $hrc['allergies'];
-      $chronicDseases = $hrc['chronicDiseases'];
-      $surgeries = $hrc['surgeries'];
-      $medicalReports = $hrc['reports'];
+      if (isset($hrc['chronicDiseases'])) {
+        $chronicDseases = $hrc['chronicDiseases'];
+      }
+
+      if (isset($hrc['surgeries'])) {
+        $surgeries = $hrc['surgeries'];
+      }
+
+      if (isset($hrc['reports'])) {
+        $medicalReports = $hrc['reports'];
+      }
+
+
+
+
 
     }
 
